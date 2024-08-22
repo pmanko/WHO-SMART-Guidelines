@@ -127,7 +127,7 @@ In the case that a new input option is needed for a coded data element (e.g. a n
 
 Once all required input options for a coded data element have been created in the DAK source, open the details for the data element and navigate to the Associations section. Use the "Add new mapping" option or the Three-dot menu of another mapping to open a form that will help you to create the new association between data element and input option(s).
 
-**TBD**: Which map type to use? (If at all?)
+**TBD**: Which map type to use? (If mappings are used in this way at all?)
 
 ![1724088078334](image/DAK-Authoring-Guide/1724088078334.png)
 
@@ -135,17 +135,55 @@ Once all required input options for a coded data element have been created in th
 
 ## Creating a value set from a data element's input options
 
-1. Select the concepts to be added
-2. Create the value set (if not already existing) - Note that not all details need to be filled in now, but the Value Set's ID cannot be changed later.
-3. Add using the "mappings" cascade
-4. Recommended: link the value set back to the data element concept using the "Value Set URL" (and "Value Set Canonical") attribute(s) (URL = OCL URL, Canonical = Universal identifying URL)
+Note: OCL collections are the repository type which contain other concepts, also known as a value set in FHIR terms.
+
+1. Select the concepts to be added to the value set and click "Add to Collection"
+   1. Create the value set (if not already existing) - Note that not all details need to be filled in now, but the Value Set's ID cannot be changed later.
+2. A dialogue window will appear, which determines how much information should come into the collection with the selected concepts. In general, it is recommended to at least use the "Yes, include associated Mappings from the same source" cascade option.
+3. Navigate to the newly added concepts in the value set to ensure that the appropriate concepts (and their mappings) were added into the value set correctly
+4. **TBD:** Recommended - link the value set back to the data element concept using the "Value Set URL" (and "Value Set Canonical") attribute(s) (URL = OCL-specific URL, Canonical = Universal identifying URL)
+
+![1724342478318](image/DAK-Authoring-Guide/1724342478318.png)
 
 ## Adapting an existing value set
 
+### Intensional value set adaptation
+
+When an existing value set meets most of the requirements, but has slightly different values in the set for the DAK in development, the existing value set can be adapted using intensional references. Simply put, this allows the DAK developer to bring in another value set's contents using one command, rather than selecting concepts one at a time. Once that new value set has been started, new concepts can be added using the instructions in the "Creating a value set from a data element's input options" section. Concepts can also be removed from the value set by selecting the concepts and clicking "Remove references".
+
+When removing concepts or mappings from a collection, OCL will often ask if you want to "Remove reference(s)" or "Exclude concept(s)/mapping(s) from collection". Often, OCL's recommended option there should be used. Since an intensional reference can bring in multiple concepts and mappings with it, the most common recommended option is to "Exclude" the concept, allowing you to essentially "include all concepts from another value set EXCEPT for this particular concept". Many exclusions can be made if multiple concepts should not appear in the value set.
+
+All references, including those that brought content into the value set (i.e. Include references) and those that kept content out of the value set (i.e. Exclude references), can be seen in the collection's References tab. This may help to explain why content is or is not appearing in the collection.
+
+Note that there are known issues with this workflow, so it is important to check the value set contents. If this method fails, follow the instructions in the "Extensional value set adaptation" section.
+
+See the visual example below, where a new Danger Signs value set is created intensionally from the previous Danger Signs value set. Then, a concept is removed using an "Exclusion" reference. 
+
+![1724348126889](image/DAK-Authoring-Guide/1724348126889.png)
+
+### Extensional value set adaptation
+
+When intensional value set building is not appropriate or working as expected, then it is appropriate to create new value sets using the similar method described in the "Creating a value set from a data element's input options" section. Concepts in the existing value set can be selected, one at a time, and added into the new, adapted value set. From that new value set, new concepts can be added or removed by selecting the concepts and clicking "Remove references" as described in the "Intensional value set adaptation" section.
 
 # Managing versions
 
 Save versions of all created repositories at the end of the development process when ready to share content for broader feedback.
+
+**TBD**: Versioning guidance? What version numbers should be used?
+
+# Importing an existing DAK spreadsheet
+
+Python scripts or other tools to prepare the DAK dictionary for import into OCL may be also used to create terminology resources in OCL. However, this likely will not fully follow the DAK model in OCL and will still require additional enrichment, mappings to DAK concepts, etc. in OCL.
+
+[Bulk Import documentation](https://docs.openconceptlab.org/en/latest/oclapi/apireference/bulkimporting.html) for OCL is available to support users in creating dictionaries, value sets, concepts, mappings, etc. If spreadsheet-based DAK development is preferred, then bulk importing may be a viable option to create those resources in OCL, as long as the developer is comfortable with using existing tooling or with transforming the DAK spreadsheet into an OCL Bulk Import format (either CSV or JSON lines).
+
+This method will often require some additional consultation from an OCL administrator or a SMART Guidelines community member.
+
+Existing (albeit nascent and not fully tested and validated) tooling for this spreadsheet conversion also may be used, including the following:
+
+* DAK spreadsheet converter (Python Notebook for converting L2 spreadsheet to OCL Bulk import format): https://github.com/jamlung-ri/WHO-SMART-Guidelines/blob/main/WHO%20Measles%20Dictionary%20Parsing%20and%20OCL%20Prep.ipynb
+  * Converts DAK spreadsheet concepts into OCL bulk import files that create a single source, then organizes concepts into value sets, then creates versions of those value sets
+* I-TECH L3 tooling (not yet endorsed, further documentation needed): https://github.com/I-TECH-UW/who_l3_smart_tools/
 
 # Dictionary Checklist
 
