@@ -1,6 +1,7 @@
 # To Dos
 
 * Change headers to use more DAK author-like language (look at L2 SOP for examples)
+* Include a section for importing a DAK data dictionary
 
 # Setup and Prerequisites
 
