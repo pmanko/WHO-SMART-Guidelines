@@ -2,6 +2,9 @@
 
 * Change headers to use more DAK author-like language (look at L2 SOP for examples)
 * Include a section for importing a DAK data dictionary
+* Add L3 language including:
+  * How to get content back out of OCL as FHIR
+  * How to put L3 content into an IG
 
 # Setup and Prerequisites
 
@@ -157,7 +160,7 @@ All references, including those that brought content into the value set (i.e. In
 
 Note that there are known issues with this workflow, so it is important to check the value set contents. If this method fails, follow the instructions in the "Extensional value set adaptation" section.
 
-See the visual example below, where a new Danger Signs value set is created intensionally from the previous Danger Signs value set. Then, a concept is removed using an "Exclusion" reference. 
+See the visual example below, where a new Danger Signs value set is created intensionally from the previous Danger Signs value set. Then, a concept is removed using an "Exclusion" reference.
 
 ![1724348126889](image/DAK-Authoring-Guide/1724348126889.png)
 
@@ -167,9 +170,17 @@ When intensional value set building is not appropriate or working as expected, t
 
 # Managing versions
 
-Save versions of all created repositories at the end of the development process when ready to share content for broader feedback.
+Save versions of all created repositories at the end of the development process when ready to share content for broader feedback. This can be done within the Version tab of all sources and collections (i.e. CodeSystems and ValueSets). Creating a version means that OCL will save your current progress in that repository. 
+
+Until a version is saved, all of your work done so far will live in the HEAD version of your repository. This is like a workspace, whereas the saved version is the more official "point in time" content set, which is frozen and cannot be edited. Implementers, e.g. systems who uptake the dictionary, should be directed towards specific repo versions in OCL, rather than the HEAD version.
+
+Retrieving content in a FHIR format from an OCL repository is ONLY possible if a version has been saved.
+
+Note that any version can be released or unreleased. This is a simple flag to let users know that the version is published and ready to go.
 
 **TBD**: Versioning guidance? What version numbers should be used?
+
+![1724356007079](image/DAK-Authoring-Guide/1724356007079.png)
 
 # Importing an existing DAK spreadsheet
 
@@ -241,13 +252,15 @@ Additionally, the following attributes from the DAK can be defined as Custom (AK
 
 ## Value Sets (Collections)
 
+Be sure to include "Purpose" attribute as the current organization attribute?
+
 # Major TBDs, Gaps, and/or Assumptions
 
 * **ID Generation:** In the absence of DAK-specific ID generation, IDs will need to be assigned manually OR they will need to use a simple numeric ID that can be auto-generated.
 * **Canonical URL Assignment:** Canonical URLs can be whatever URL we want them to be, so an official method should be decided and listed in the SOP.
 * **Concept Properties:** In the absense of CodeSystem property support, all concept properties outside of OCL's data model will be stored as Extra attributes, including but not limited to the following properties: "Activity ID and name", "Quantity subtype", "Calculation", "Validation condition", "Optionality", "Explain conditionality", "Functional grouping of data elements", "Linkages to decision-support tables", "Linkages to scheduling logic tables", "Linkages to aggregate indicators", "Annotations", "Intended FHIR Resource for profile" (if available)
 * **Packaging:** In the absence of packaging features for specific DAKs, there may need to be a way to group or retrieve OCL content that denotes what DAK(s) it should be packaged with. Example: Use the Purpose FHIR attribute of the CodeSystem, ValueSet, and ConceptMap resources
-  * In the absence of downloading the appropriate FHIR resources, a script will be required that saves the individual FHIR resources from the WHO organization as files, which can be used for FHIR IG generation.
+  * In the absence of downloading the appropriate FHIR resources, a script may be required that saves the individual FHIR resources from the WHO organization as files, which can be used for FHIR IG generation.
 * **Source Visibility:** In the absence of features for advanced roles and permissions, the only security feature is to use Private repositories. WHO should have a stance on whether or not their in-draft DAK content should be visible outside of the members of OCL's WHO organization. This affects whether OCL repos are developed in Private or in Public (View Only) mode.
   * Suggestion: Develop in Private mode until there is need for broader feedback, then publish in View Only mode using a Draft (e.g. 0.1.0) version.
 * **Map Types:** What are the preferred map types for the following scenarios? (Common OCL map types that work with OpenMRS include SAME-AS, Narrower-Than, Broader-Than, Q-AND-A, Concept-Set)
