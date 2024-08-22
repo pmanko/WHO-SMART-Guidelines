@@ -97,7 +97,7 @@ See the Dictionary Checklist section for the required and optional attributes fo
 
 ## Adding Mappings to a Concept
 
-Any concept, whether they are data elements or input options, can have mappings, including the following:
+Any concept can have mappings, including the following:
 
 * Internal mappings: Connect two concepts in the DAK dictionary
 * External mappings: Link a DAK dictionary concept to an external vocabulary, such as ICD-10
@@ -130,22 +130,19 @@ Once all required input options for a coded data element have been created in th
 
 ![1724088078334](image/DAK-Authoring-Guide/1724088078334.png)
 
-# Creating a value set of input options
+# Working with Value Sets
 
-1. Select the concepts to be added (often in the DAK source)
-2. Search for an existing value set to place the concepts into
-   1. Create the value set, if not already existing.
-      1. Ensure that the value set is being created in the appropriate Org, since OCL defaults to placing value sets in the User's ownership, and ownership is not easy to change.
-      2. Note that not all details need to be filled in now.
-3. OCL will display a dialogue to ask if a cascade should be used. In general, it is recommended to at least use the cascade option that says "Yes, include associated Mappings from the same source"
+## Creating a value set from a data element's input options
+
+1. Select the concepts to be added
+2. Create the value set (if not already existing) - Note that not all details need to be filled in now, but the Value Set's ID cannot be changed later.
+3. Add using the "mappings" cascade
 4. Recommended: link the value set back to the data element concept using the "Value Set URL" (and "Value Set Canonical") attribute(s) (URL = OCL URL, Canonical = Universal identifying URL)
 
-Note that the example below is done using DAK concepts, although it is possible to follow the same workflow from another OCL source.
-
-![1724269990687](image/DAK-Authoring-Guide/1724269990687.png)
+## Adapting an existing value set
 
 
-# Managing repository versions
+# Managing versions
 
 Save versions of all created repositories at the end of the development process when ready to share content for broader feedback.
 
@@ -207,8 +204,6 @@ Additionally, the following attributes from the DAK can be defined as Custom (AK
 
 # Major TBDs, Gaps, and/or Assumptions
 
-## Gaps and TBDs
-
 * **ID Generation:** In the absence of DAK-specific ID generation, IDs will need to be assigned manually OR they will need to use a simple numeric ID that can be auto-generated.
 * **Canonical URL Assignment:** Canonical URLs can be whatever URL we want them to be, so an official method should be decided and listed in the SOP.
 * **Concept Properties:** In the absense of CodeSystem property support, all concept properties outside of OCL's data model will be stored as Extra attributes, including but not limited to the following properties: "Activity ID and name", "Quantity subtype", "Calculation", "Validation condition", "Optionality", "Explain conditionality", "Functional grouping of data elements", "Linkages to decision-support tables", "Linkages to scheduling logic tables", "Linkages to aggregate indicators", "Annotations", "Intended FHIR Resource for profile" (if available)
@@ -222,11 +217,7 @@ Additionally, the following attributes from the DAK can be defined as Custom (AK
   * Mapping two concepts with the same meaning
   * Mapping a concept as inexactly mapped to another concept (e.g. narrower-than or broader-than)
 
-## Assumptions
-
-1. **Check this:** WHO will now allow DAK authors to create value sets that consist directly of reference vocabulary codes. They must instead DAK-specific concepts that act as the go-between for reference vocabulary codes.
-2. Short-term Approach: Each DAK plus the Core dictionary exist as separate dictionaries, putting a layer of separation between concepts from different DAKs.
-
+1. Short-term Approach: Each DAK plus the Core dictionary exist as separate dictionaries, putting a layer of separation between concepts from different DAKs.
    1. Example: If a concept starts in Immz, it can also go to the Core dictionary with a mapping between the Immz and Core concepts.
    2. Pro: Separation of concepts is done intentionally; mapping can be done to link same-as concepts.
    3. Con: DAK Proliferation is harder to manage in long term; changes to concept(s) will need to be managed in multiple places: at the concept level AND at the mapping level; searching for and reusing concepts may be harder - which concept to reuse?
