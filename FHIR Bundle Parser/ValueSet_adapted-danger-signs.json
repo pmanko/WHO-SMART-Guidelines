@@ -1,0 +1,48 @@
+{
+  "resourceType": "ValueSet",
+  "id": "adapted-danger-signs",
+  "version": "0.1.0",
+  "title": "New value set adapted from Danger Signs",
+  "status": "draft",
+  "meta": {
+    "lastUpdated": "2024-08-22T19:48:01.810919Z"
+  },
+  "name": "Adapted Danger Signs",
+  "description": "First initial version of Example DAK",
+  "purpose": "Example",
+  "compose": {
+    "include": [
+      {
+        "valueSet": [
+          "/orgs/WHO-SG-Example/collections/danger-signs/"
+        ]
+      }
+    ],
+    "exclude": [
+      {
+        "system": "/orgs/WHO-SG-Example/ValueSet/smart-example-immz/",
+        "concept": [
+          {
+            "code": "10000509"
+          }
+        ]
+      }
+    ]
+  },
+  "identifier": [
+    {
+      "system": "https://api.staging.openconceptlab.org",
+      "value": "/orgs/WHO-SG-Example/ValueSet/adapted-danger-signs/",
+      "type": {
+        "text": "Accession ID",
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/v2/0203",
+            "code": "ACSN",
+            "display": "Accession ID"
+          }
+        ]
+      }
+    }
+  ]
+}

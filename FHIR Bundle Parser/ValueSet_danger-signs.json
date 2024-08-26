@@ -1,0 +1,59 @@
+{
+  "resourceType": "ValueSet",
+  "id": "danger-signs",
+  "version": "0.1.0",
+  "title": "Danger Signs",
+  "status": "draft",
+  "meta": {
+    "lastUpdated": "2024-08-22T19:47:36.187240Z"
+  },
+  "name": "Danger Signs",
+  "description": "First initial version of Example DAK",
+  "purpose": "Example",
+  "compose": {
+    "include": [
+      {
+        "system": "/orgs/WHO-SG-Example/ValueSet/smart-example-immz/",
+        "concept": [
+          {
+            "code": "10000509"
+          },
+          {
+            "code": "10000507"
+          },
+          {
+            "code": "10000505"
+          },
+          {
+            "code": "10000503"
+          },
+          {
+            "code": "10000499"
+          },
+          {
+            "code": "10000495"
+          },
+          {
+            "code": "1234"
+          }
+        ]
+      }
+    ]
+  },
+  "identifier": [
+    {
+      "system": "https://api.staging.openconceptlab.org",
+      "value": "/orgs/WHO-SG-Example/ValueSet/danger-signs/",
+      "type": {
+        "text": "Accession ID",
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/v2/0203",
+            "code": "ACSN",
+            "display": "Accession ID"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -14,11 +14,7 @@
 
 # Start up the DAK dictionary
 
-An OCL source will serve as the primary home for DAK concepts, whether they will be represented as in the L3 FHIR resources as Profiles or Value Sets.
-
-1. Use the Create Source button to pull up a form to fill in the details for the DAK.
-
-   ![1723231674729](image/Terminology-Management-Guide/1723231674729.png)
+1. ![1723231674729](image/Terminology-Management-Guide/1723231674729.png)
 2. Fill out required fields for this source, based on the DAK being developed.
 
    * Recommended Configurations for most DAKs:
@@ -78,12 +74,20 @@ Note that IDs cannot be changed on any concept.
 ### Questions and Discussions
 
 * What is the order of preference of sources to search for concept reuse? Proposed order:
-  * DAK Core Dictionary: Any concept can be reused verbatim or adapted (Note that any concepts from other DAK dictionaries should have a representation here, so no other DAK dictionaries should be required for searching unless they are in a pre-publication stage)
-  * Reference Terminologies including ICD-10, ICD-11, SNOMED-GPS, LOINC, etc. (Note that these offer starting points but likely will need additional information to be usable for the DAK dictionary being developed)
-  * CIEL? (Can simply be used as a reference for modeling the concepts, remaking a list of common answers to a question, etc.)
+  * DAK Common Dictionary: Any concept can be reused verbatim or adapted (Note that any concepts from other DAK dictionaries should have a representation here, so no other DAK dictionaries should be required for searching unless they are in a pre-publication stage)
+  * Other published DAKs
+  * (DAK authors won't use this, but terminologists might use this as a starter or example) Reference Terminologies including ICD-10, ICD-11, SNOMED-GPS, LOINC, etc. (Note that these offer starting points but likely will need additional information to be usable for the DAK dictionary being developed)
+  * (DAK authors won't use this, but terminologists might use this as a starter or example) CIEL? (Can simply be used as a reference for modeling the concepts, remaking a list of common answers to a question, etc.)
   * Other sources?
+* $clone discussion: Reuse verbatim vs. adapting
+  * **Verbatim use means that Common concepts includes everything that is being reused**
+    * **E.g. if SMART common already had client name /registration, you will base it on SMART common**
+    * **This is about declaring a dependency, when it comes to IG publication**
+    * **Talk to Jose about this**
 * Gap: $clone does not allow the user to manually input an ID - OCL instead autoassigns an ID. Should we support a WHO auto-ID schema, or perhaps should we change the clone operation to allow manual ID input?
-* 
+  * **Define data element ID using the first place where it is used**
+  * **Auto-id numbering is a good starter**
+* Note: mappings to be confirmed by a terminologist before formal publication of L2/L3 artifacts e.g. correct map type, appropriate linkage, etc.
 
 ## Creating a Concept (e.g. a Data Element)
 
@@ -170,7 +174,7 @@ When intensional value set building is not appropriate or working as expected, t
 
 # Managing versions
 
-Save versions of all created repositories at the end of the development process when ready to share content for broader feedback. This can be done within the Version tab of all sources and collections (i.e. CodeSystems and ValueSets). Creating a version means that OCL will save your current progress in that repository. 
+Save versions of all created repositories at the end of the development process when ready to share content for broader feedback. This can be done within the Version tab of all sources and collections (i.e. CodeSystems and ValueSets). Creating a version means that OCL will save your current progress in that repository.
 
 Until a version is saved, all of your work done so far will live in the HEAD version of your repository. This is like a workspace, whereas the saved version is the more official "point in time" content set, which is frozen and cannot be edited. Implementers, e.g. systems who uptake the dictionary, should be directed towards specific repo versions in OCL, rather than the HEAD version.
 
@@ -195,6 +199,60 @@ Existing (albeit nascent and not fully tested and validated) tooling for this sp
 * DAK spreadsheet converter (Python Notebook for converting L2 spreadsheet to OCL Bulk import format): https://github.com/jamlung-ri/WHO-SMART-Guidelines/blob/main/WHO%20Measles%20Dictionary%20Parsing%20and%20OCL%20Prep.ipynb
   * Converts DAK spreadsheet concepts into OCL bulk import files that create a single source, then organizes concepts into value sets, then creates versions of those value sets
 * I-TECH L3 tooling (not yet endorsed, further documentation needed): https://github.com/I-TECH-UW/who_l3_smart_tools/
+
+# Using OCL terminology resources for FHIR IG generation
+
+As of August 2024, OCL is not currently established as a terminology server for the FHIR Implementation Guide (IG) publisher. This means that the IG Publisher cannot directly query OCL's FHIR terminology resources during the IG  However, OCL's terminology resources can be used in combination with the IG Publisher (including FSH/SUSHI files if needed) to generate a FHIR implementation guide.
+
+## Retrieving FHIR resources from OCL
+
+One of two main methods can be used to get FHIR terminology resources out of OCL.
+
+### Method 1: Get as FHIR bundle and extract out individual FHIR resources
+
+OCL's API returns a bundle of resources when hitting appropriate endpoints for CodeSystem, ValueSet, and ConceptMap. In general, this should occur in the organization namespace in which the DAK dictionary was authored. Additionally, parameters can be specified to filter out the resources that are returned in the bundle. 
+
+The generic structure for these API requests is:
+
+`https://fhir.[environment.]openconceptlab.org/orgs/[OCL Organization ID]/[FHIR resource to retrieve]/?[attribute to filter by]=[value]`
+
+An more common example for these API requests in the context of SMART Guidelines is:
+
+`https://fhir.staging.openconceptlab.org/orgs/WHO-SG-Example/CodeSystem/?purpose=Example`
+
+This queries OCL's Staging server, looking in the "WHO-SG-Example" organization, getting the CodeSystem resource, but restricting to only CodeSystems with the "Purpose" attribute as "Example".
+
+Using this query structure, you can retrieve all of the appropriate terminology resources in three queries: One for CodeSystem resources, one for ValueSet resources, and one for ConceptMap resources.
+
+- Note: be sure to check that all expected terminology resources are in the bundle. If any are missing, check that all OCL repositories have a saved version (i.e. not the HEAD version).
+
+Once the resources have been retrieved, tooling like this Python script can be used to parse out the individual resources.
+
+
+### Method 2: Download and save FHIR resources individually
+
+
+* Regardless of which option is used, OCL's FHIR resources (CodeSystems, ValueSets, and ConceptMaps) need to be saved individually, not as FHIR bundles.
+
+
+
+* Place the FHIR resources into the GitHub folder "input/resources/"
+* After other L3 artifacts (CQL logic, FSH files, etc.) have been placed in the GitHub repo, the FHIR IG can be generated.
+
+  * Note: Other L3 artifacts can reference FHIR terminology resources from OCL (e.g. bind a profile element to a ValueSet that came from OCL), following a similar workflow as if the terminology was being authored in FSH files. Use the terminology resource's Canonical URL attribute for this, such as the example FSH file shown below:
+
+```
+Profile: CatMeaslesImmunization
+Parent: SGImmunization
+
+* extension[administeredProduct]
+  * valueCodeableConcept from http://smart.who.int/immunizations-measles/ValueSet/VSMeaslesVaccineProducts (required)
+  // * valueReference only Reference(CatMeaslesVaccineProduct)
+```
+
+
+* In this example, the canonical URL "http://smart.who.int/immunizations-measles/ValueSet/VSMeaslesVaccineProducts" references [this OCL valueset](https://app.staging.openconceptlab.org/#/orgs/WHO-SMART-Measles-Test/collections/VSMeaslesVaccineProducts/).
+  * Note: OCL enables searching by a canonical URL if you would like to verify the presence of a terminology resource in OCL. [Example search](https://app.staging.openconceptlab.org/#/search/?q=http://smart.who.int/immunizations-measles/ValueSet/VSMeaslesVaccineProducts&isTable=true&isList=false&page=1&type=collections) in the OCL Staging environment.
 
 # Dictionary Checklist
 
@@ -243,6 +301,7 @@ Additionally, the following attributes from the DAK can be defined as Custom (AK
 ### Questions and Discussions
 
 * Data type: Need to figure out how DAK values map to OCL values
+* Concept Class - currently using this as "Data Element" vs. "Input Option". How does WHO actually want to use this? Example - CIEL uses diagnoses, tests, question/answers, concept sets, etc.
 * Name type: What is the OpenMRS requirement for this value? How are synonyms represented?
 * Where should we be managing potential values for fields like "Optionality"? Should we make OCL value sets?
 * Are any of these Extra Attributes required? What requirements or guidance are there? Or is it open ended for now?
@@ -252,11 +311,13 @@ Additionally, the following attributes from the DAK can be defined as Custom (AK
 
 ## Value Sets (Collections)
 
-Be sure to include "Purpose" attribute as the current organization attribute?
+Be sure to include "Purpose" attribute as the main DAK attribute?
 
 # Major TBDs, Gaps, and/or Assumptions
 
 * **ID Generation:** In the absence of DAK-specific ID generation, IDs will need to be assigned manually OR they will need to use a simple numeric ID that can be auto-generated.
+  * Note that OCL won't be able to do the thing where it distributes it out by Activity. That could be a post-authoring step, maybe? Might be the first step towards making a DAK source "official"?
+  * Discussed on 26 Aug 2024: For getting this started, let's use OCL's auto-id generation for concepts. DAK-specific ID generation can hold off for now.
 * **Canonical URL Assignment:** Canonical URLs can be whatever URL we want them to be, so an official method should be decided and listed in the SOP.
 * **Concept Properties:** In the absense of CodeSystem property support, all concept properties outside of OCL's data model will be stored as Extra attributes, including but not limited to the following properties: "Activity ID and name", "Quantity subtype", "Calculation", "Validation condition", "Optionality", "Explain conditionality", "Functional grouping of data elements", "Linkages to decision-support tables", "Linkages to scheduling logic tables", "Linkages to aggregate indicators", "Annotations", "Intended FHIR Resource for profile" (if available)
 * **Packaging:** In the absence of packaging features for specific DAKs, there may need to be a way to group or retrieve OCL content that denotes what DAK(s) it should be packaged with. Example: Use the Purpose FHIR attribute of the CodeSystem, ValueSet, and ConceptMap resources
