@@ -1,10 +1,6 @@
 # To Dos
 
 * Change headers to use more DAK author-like language (look at L2 SOP for examples)
-* Include a section for importing a DAK data dictionary
-* Add L3 language including:
-  * How to get content back out of OCL as FHIR
-  * How to put L3 content into an IG
 
 # Setup and Prerequisites
 
