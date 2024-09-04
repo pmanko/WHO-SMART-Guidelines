@@ -427,6 +427,10 @@ Many of the attributes specified in the DAK collections in OCL will appear in th
   * Note that OCL won't be able to do the thing where it distributes it out by Activity. That could be a post-authoring step, maybe? Might be the first step towards making a DAK source "official"?
   * Discussed on 26 Aug 2024: For getting this started, let's use OCL's auto-id generation for concepts. DAK-specific ID generation can hold off for now.
 * **Canonical URL Assignment:** Canonical URLs can be whatever URL we want them to be, so an official method should be decided and listed in the SOP.
+  * **Consider using a particular anchor for canonical URL generation, with some logic for suffix creation**
+  * **The URL should be tied to the entity that governs it, likely via that anchor.**
+  * **Protect against url abuse**
+  * **To do: Chat about this with Jose**
 * **Concept Properties:** In the absense of CodeSystem property support, all concept properties outside of OCL's data model will be stored as Extra attributes, including but not limited to the following properties: "Activity ID and name", "Quantity subtype", "Calculation", "Validation condition", "Optionality", "Explain conditionality", "Functional grouping of data elements", "Linkages to decision-support tables", "Linkages to scheduling logic tables", "Linkages to aggregate indicators", "Annotations", "Intended FHIR Resource for profile" (if available)
 * **Packaging:** In the absence of packaging features for specific DAKs, there may need to be a way to group or retrieve OCL content that denotes what DAK(s) it should be packaged with. Example: Use the Purpose FHIR attribute of the CodeSystem, ValueSet, and ConceptMap resources
   * In the absence of downloading the appropriate FHIR resources, a script may be required that saves the individual FHIR resources from the WHO organization as files, which can be used for FHIR IG generation.
