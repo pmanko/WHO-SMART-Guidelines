@@ -1,6 +1,12 @@
 # Conceptual Model for SMART Guidelines Terminology Management using OCL
 
-For high level information about what approach will be taken for terminology management for SMART Guideliens, see slides 1-14 of this deck: https://docs.google.com/presentation/d/1MsF8Nk7w146xrMAAhs8vA5j58a9jIBoHyOCvY_AD8Bw/edit
+For high level information about what approach will be taken for terminology management for SMART Guidelines, see slides 1-14 of this deck: https://docs.google.com/presentation/d/1MsF8Nk7w146xrMAAhs8vA5j58a9jIBoHyOCvY_AD8Bw/edit
+
+
+# To do
+
+* SMART Guidelines Author --> Terminology Author? (Might need to separate L2/L3 Authoring too? Or maybe not.)
+* 
 
 # Setup and Prerequisites
 
