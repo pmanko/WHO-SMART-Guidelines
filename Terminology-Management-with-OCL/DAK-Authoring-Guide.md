@@ -1,3 +1,7 @@
+# Conceptual Model for SMART Guidelines Terminology Management using OCL
+
+For high level information about what approach will be taken for terminology management for SMART Guideliens, see slides 1-14 of this deck: https://docs.google.com/presentation/d/1MsF8Nk7w146xrMAAhs8vA5j58a9jIBoHyOCvY_AD8Bw/edit
+
 # Setup and Prerequisites
 
 1. An official OCL Organization should be created as the home for all WHO DAK content. In this example, it will be [WHO-SG-Example](https://app.staging.openconceptlab.org/#/orgs/WHO-SG-Example/sources/).
@@ -6,9 +10,7 @@
 
 # Start up the DAK dictionary
 
-
 ![1723231674729](image/Terminology-Management-Guide/1723231674729.png)
-
 
 1. Fill out required fields for this source, based on the DAK being developed.
 
@@ -25,7 +27,7 @@
 * **Note:** Sources will use the Purpose attribute as a way to tie DAK contents together, until resource packaging is supported in OCL.
 
 2. It is recommended that preliminary descriptive information about the DAK is provided in the Source About page, if available. This is the place to describe in detail the intended use of the DAK, assumptions, and other important information about its contents. It is also an ideal place to link to the other artifacts, GitHub reposotories, etc. that are related to your DAK. This content can be added at any time but should be populated before releasing a version of the DAK in order to appear in your FHIR terminology resource(s).
-4. Click "Create Source" to submit information and create the DAK source. Once the page refreshes, ensure that the Canonical URL of the source is visible and correct. Click on the Source to enter it and to view its contents.
+3. Click "Create Source" to submit information and create the DAK source. Once the page refreshes, ensure that the Canonical URL of the source is visible and correct. Click on the Source to enter it and to view its contents.
 
 # Creating Concepts in the DAK
 
