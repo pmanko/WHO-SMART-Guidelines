@@ -2,7 +2,6 @@
 
 For high level information about what approach will be taken for terminology management for SMART Guidelines, see slides 1-14 of this deck: https://docs.google.com/presentation/d/1MsF8Nk7w146xrMAAhs8vA5j58a9jIBoHyOCvY_AD8Bw/edit
 
-
 # To do
 
 * SMART Guidelines Author --> Terminology Author? (Might need to separate L2/L3 Authoring too? Or maybe not.)
@@ -430,24 +429,32 @@ Many of the attributes specified in the DAK collections in OCL will appear in th
 
 # Major TBDs, Gaps, and/or Assumptions
 
-* **ID Generation:** In the absence of DAK-specific ID generation, IDs will need to be assigned manually OR they will need to use a simple numeric ID that can be auto-generated.
-  * Note that OCL won't be able to do the thing where it distributes it out by Activity. That could be a post-authoring step, maybe? Might be the first step towards making a DAK source "official"?
-  * Discussed on 26 Aug 2024: For getting this started, let's use OCL's auto-id generation for concepts. DAK-specific ID generation can hold off for now.
-* **Canonical URL Assignment:** Canonical URLs can be whatever URL we want them to be, so an official method should be decided and listed in the SOP.
-  * **Consider using a particular anchor for canonical URL generation, with some logic for suffix creation**
-  * **The URL should be tied to the entity that governs it, likely via that anchor.**
-  * **Protect against url abuse**
-  * **To do: Chat about this with Jose**
 * **Concept Properties:** In the absense of CodeSystem property support, all concept properties outside of OCL's data model will be stored as Extra attributes, including but not limited to the following properties: "Activity ID and name", "Quantity subtype", "Calculation", "Validation condition", "Optionality", "Explain conditionality", "Functional grouping of data elements", "Linkages to decision-support tables", "Linkages to scheduling logic tables", "Linkages to aggregate indicators", "Annotations", "Intended FHIR Resource for profile" (if available)
-* **Packaging:** In the absence of packaging features for specific DAKs, there may need to be a way to group or retrieve OCL content that denotes what DAK(s) it should be packaged with. Example: Use the Purpose FHIR attribute of the CodeSystem, ValueSet, and ConceptMap resources
-  * In the absence of downloading the appropriate FHIR resources, a script may be required that saves the individual FHIR resources from the WHO organization as files, which can be used for FHIR IG generation.
-* **Source Visibility:** In the absence of features for advanced roles and permissions, the only security feature is to use Private repositories. WHO should have a stance on whether or not their in-draft DAK content should be visible outside of the members of OCL's WHO organization. This affects whether OCL repos are developed in Private or in Public (View Only) mode.
-  * Suggestion: Develop in Private mode until there is need for broader feedback, then publish in View Only mode using a Draft (e.g. 0.1.0) version.
 * **Map Types:** What are the preferred map types for the following scenarios? (Common OCL map types that work with OpenMRS include SAME-AS, Narrower-Than, Broader-Than, Q-AND-A, Concept-Set)
   * Adding an Input Option to a coded Data Element
   * Organizing concepts into a set or list
   * Mapping two concepts with the same meaning
   * Mapping a concept as inexactly mapped to another concept (e.g. narrower-than or broader-than)
+  * Discussion outcome 16Sep2024: Jon and Joe to brainstorm a model for better displaying collection members instead of Associations
+
+## Completed Discussions
+
+* **Packaging:** In the absence of packaging features for specific DAKs, there may need to be a way to group or retrieve OCL content that denotes what DAK(s) it should be packaged with. Example: Use the Purpose FHIR attribute of the CodeSystem, ValueSet, and ConceptMap resources
+
+  * In the absence of downloading the appropriate FHIR resources, a script may be required that saves the individual FHIR resources from the WHO organization as files, which can be used for FHIR IG generation. Example tool: [https://github.com/jamlung-ri/WHO-SMART-Guidelines/tree/main/FHIR%20Bundle%20Parser](https://github.com/jamlung-ri/WHO-SMART-Guidelines/tree/main/FHIR%20Bundle%20Parser)
+* **Source Visibility:** In the absence of features for advanced roles and permissions, the only security feature is to use Private repositories. WHO should have a stance on whether or not their in-draft DAK content should be visible outside of the members of OCL's WHO organization. This affects whether OCL repos are developed in Private or in Public (View Only) mode.
+
+  * Discussion outcome: Read-only mode is adequate, Private mode is not necessary
+* **ID Generation:** In the absence of DAK-specific ID generation, IDs will need to be assigned manually OR they will need to use a simple numeric ID that can be auto-generated.
+
+  * Note that OCL won't be able to do the thing where it distributes it out by Activity. That could be a post-authoring step, maybe? Might be the first step towards making a DAK source "official"?
+  * Discussed on 26 Aug 2024: For getting this started, let's use OCL's auto-id generation for concepts. DAK-specific ID generation can hold off for now.
+* **Canonical URL Assignment:** Canonical URLs can be whatever URL we want them to be, so an official method should be decided and listed in the SOP.
+
+  * **Consider using a particular anchor for canonical URL generation, with some logic for suffix creation**
+  * **The URL should be tied to the entity that governs it, likely via that anchor.**
+  * **Protect against url abuse**
+  * **To do: Chat about this with Jose**
 
 1. Short-term Approach: Each DAK plus the Core dictionary exist as separate dictionaries, putting a layer of separation between concepts from different DAKs.
    1. Example: If a concept starts in Immz, it can also go to the Core dictionary with a mapping between the Immz and Core concepts.
