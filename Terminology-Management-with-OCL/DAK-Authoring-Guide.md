@@ -15,7 +15,7 @@ For high level information about what approach will be taken for terminology man
 
 # Start up the DAK dictionary
 
-![1723231674729](image/Terminology-Management-Guide/1723231674729.png)
+![1728302475032](image/DAK-Authoring-Guide/1728302475032.png)
 
 1. Fill out required fields for this source, based on the DAK being developed.
 
@@ -56,7 +56,7 @@ Note that the clone operation by default will "cascade", meaning it will recreat
 
 ### Visual example of searching and cloning
 
-![1723829331016](image/DAK-Authoring-Guide/1723829331016.png)
+![1728302521693](image/DAK-Authoring-Guide/1728302521693.png)
 
 ### Making adaptations to a cloned concept
 
@@ -72,7 +72,7 @@ Adding translations to this concept can also be done using this action by creati
 
 Note that IDs cannot be changed on any concept.
 
-![1723831205307](image/DAK-Authoring-Guide/1723831205307.png)
+![1728302543511](image/DAK-Authoring-Guide/1728302543511.png)
 
 ### Questions and Discussions
 
@@ -96,13 +96,13 @@ Note that IDs cannot be changed on any concept.
 
 Click the "+" icon to "Add Concept". This will open the form to create a concept, which will contain the necessary fields to fill out for each data element.
 
-![1723466584922](image/DAK-Authoring-Guide/1723466584922.gif)
+![1728302561394](image/DAK-Authoring-Guide/1728302561394.png)
 
 Click the "Create" button to submit the concept to OCL. OCL may return errors if improper values are provided.
 
 A visual example of populating the attributes for an OCL concept is shown below, using an example from the DAK Dictionary Template (**link to be added**):
 
-![1723471361867](image/DAK-Authoring-Guide/1723471361867.gif)
+![1728302571960](image/DAK-Authoring-Guide/1728302571960.png)
 
 See the Dictionary Checklist section for the required and optional attributes for concepts.
 
@@ -125,11 +125,11 @@ See below for visual examples of adding mappings to a concept.
 
 Adding a mapping to a concept that OCL recognizes:
 
-![1724088612169](image/DAK-Authoring-Guide/1724088612169.png)
+![1728302589232](image/DAK-Authoring-Guide/1728302589232.png)
 
 Adding a mapping to a concept that OCL does not recognize:
 
-![1724095326750](image/DAK-Authoring-Guide/1724095326750.png)
+![1728302601944](image/DAK-Authoring-Guide/1728302601944.png)
 
 ## Creating input options for a coded data element
 
@@ -139,7 +139,7 @@ Once all required input options for a coded data element have been created in th
 
 **TBD**: Which map type to use? (If mappings are used in this way at all?)
 
-![1724088078334](image/DAK-Authoring-Guide/1724088078334.png)
+![1728302617005](image/DAK-Authoring-Guide/1728302617005.png)
 
 # Working with Value Sets
 
@@ -153,7 +153,7 @@ Note: OCL collections are the repository type which contain other concepts, also
 3. Navigate to the newly added concepts in the value set to ensure that the appropriate concepts (and their mappings) were added into the value set correctly
 4. **TBD:** Recommended - link the value set back to the data element concept using the "Value Set URL" (and "Value Set Canonical") attribute(s) (URL = OCL-specific URL, Canonical = Universal identifying URL)
 
-![1724342478318](image/DAK-Authoring-Guide/1724342478318.png)
+![1728302632280](image/DAK-Authoring-Guide/1728302632280.png)
 
 ## Adapting an existing value set
 
@@ -169,7 +169,7 @@ Note that there are known issues with this workflow, so it is important to check
 
 See the visual example below, where a new Danger Signs value set is created intensionally from the previous Danger Signs value set. Then, a concept is removed using an "Exclusion" reference.
 
-![1724348126889](image/DAK-Authoring-Guide/1724348126889.png)
+![1728302658041](image/DAK-Authoring-Guide/1728302658041.png)
 
 ### Extensional value set adaptation
 
@@ -187,7 +187,7 @@ Note that any version can be released or unreleased. This is a simple flag to le
 
 **TBD**: Versioning guidance? What version numbers should be used?
 
-![1724356007079](image/DAK-Authoring-Guide/1724356007079.png)
+![1728302669099](image/DAK-Authoring-Guide/1728302669099.png)
 
 # Importing an existing DAK spreadsheet
 
@@ -277,22 +277,22 @@ Many of the attributes specified in the DAK source will appear in the **FHIR Cod
 
 ### Required
 
-| OCL Source Field                                     | FHIR or DAK Attribute                                                                                                                                                                                                                                                 | Expected or Example Value                                                            | Notes                                                                                                                                                 |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Source ID                                            | [id](http://hl7.org/fhir/R4/resource-definitions.html#Resource.id "Resource.id : The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.")                                                                            | smart-example-immz (Example) **(Fix this example to be Source or CodeSystem)** | This attribute cannot be changed once assigned.                                                                                                       |
-| Short Name                                           | [name](http://hl7.org/fhir/R4B/codesystem-definitions.html#CodeSystem.name "CodeSystem.name : A natural language name identifying the code system. This name should be usable as an identifier for the module by machine processing applications such as code generation.") | WHO Measles DAK Dictionary Example (Example)                                          |                                                                                                                                                       |
-| Full Name                                            | [title](http://hl7.org/fhir/R4B/codesystem-definitions.html#CodeSystem.title "CodeSystem.title : A short, descriptive, user-friendly title for the code system.")                                                                                                           | Example WHO Measles Digital Adaptation Kit Dictionary (Example)                       |                                                                                                                                                       |
-| Default Langauge                                     | [language](http://hl7.org/fhir/R4/resource-definitions.html#Resource.language "Resource.language : The base language in which the resource is written.")                                                                                                                    | "en"**(Make sure we distinguish for locales e.g. en_GB)**                       | Other supported languages can be optionally specified. Uses two-letter language codes.                                                               |
-| Source Type                                          | N/A                                                                                                                                                                                                                                                                   | **Dictionary**                                                                  |                                                                                                                                                       |
-| Visibility                                           | N/A                                                                                                                                                                                                                                                                   | Public - read only (Expected - note: use Draft language in Header)                    |                                                                                                                                                       |
-| Canonical URL                                        | TBD                                                                                                                                                                                                                                                                   | **TBD - http://smart.who.int/<ig_code>/`<resource id>`**                     | This attribute is particularly important for FHIR Implementation Guides. While it can be changed, it is recommended to stay consistent if possible. |
-| (ID Autoassignment) Concept IDs                      | N/A                                                                                                                                                                                                                                                                   | Sequential (Expected)                                                                 | Automatically assigns IDs to concepts using sequential numbers. Only works for new concepts, not existing concepts in the source.                     |
-| (ID Autoassignment) Mapping IDs                      | N/A                                                                                                                                                                                                                                                                   | Sequential (Expected)                                                                 | Automatically assigns IDs to mappings using sequential numbers. Only works for new mappings, not existing mappings in the source.                    |
-| (ID Autoassignment) Concept External IDs             | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                       | Automatically assigns unique UUIDs to concepts, which is required for implementation in OpenMRS instances                                             |
-| (ID Autoassignment) Mapping External IDs             | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                       | Automatically assigns unique UUIDs to mappings, which is required for implementation in OpenMRS instances                                             |
-| (ID Autoassignment) Concept Name External IDs        | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                       | Automatically assigns unique UUIDs to concept names, which is required for implementation in OpenMRS instances                                        |
-| (ID Autoassignment) Concept Description External IDs | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                       | Automatically assigns unique UUIDs to concept descriptions, which is required for implementation in OpenMRS instances                                 |
-| Purpose                                              | [purpose](http://hl7.org/fhir/R4/codesystem-definitions.html#CodeSystem.purpose "CodeSystem.purpose : Explanation of why this code system is needed and why it has been designed as it has.")                                                                               | "ANC" (Example)`<ig_code>`                                                          | This field will be used to query within a DAK domain e.g. "HIV". See FHIR spec for other intended uses.                                               |
+| OCL Source Field                                     | FHIR or DAK Attribute                                                                                                                                                                                                                                                 | Expected or Example Value                                                          | Notes                                                                                                                                                 |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Source ID                                            | [id](http://hl7.org/fhir/R4/resource-definitions.html#Resource.id "Resource.id : The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.")                                                                            | smart-example-immz (Example)**(Fix this example to be Source or CodeSystem)** | This attribute cannot be changed once assigned.                                                                                                       |
+| Short Name                                           | [name](http://hl7.org/fhir/R4B/codesystem-definitions.html#CodeSystem.name "CodeSystem.name : A natural language name identifying the code system. This name should be usable as an identifier for the module by machine processing applications such as code generation.") | WHO Measles DAK Dictionary Example (Example)                                        |                                                                                                                                                       |
+| Full Name                                            | [title](http://hl7.org/fhir/R4B/codesystem-definitions.html#CodeSystem.title "CodeSystem.title : A short, descriptive, user-friendly title for the code system.")                                                                                                           | Example WHO Measles Digital Adaptation Kit Dictionary (Example)                     |                                                                                                                                                       |
+| Default Langauge                                     | [language](http://hl7.org/fhir/R4/resource-definitions.html#Resource.language "Resource.language : The base language in which the resource is written.")                                                                                                                    | "en"**(Make sure we distinguish for locales e.g. en_GB)**                     | Other supported languages can be optionally specified. Uses two-letter language codes.                                                               |
+| Source Type                                          | N/A                                                                                                                                                                                                                                                                   | **Dictionary**                                                                |                                                                                                                                                       |
+| Visibility                                           | N/A                                                                                                                                                                                                                                                                   | Public - read only (Expected - note: use Draft language in Header)                  |                                                                                                                                                       |
+| Canonical URL                                        | TBD                                                                                                                                                                                                                                                                   | **TBD - http://smart.who.int/<ig_code>/`<resource id>`**                   | This attribute is particularly important for FHIR Implementation Guides. While it can be changed, it is recommended to stay consistent if possible. |
+| (ID Autoassignment) Concept IDs                      | N/A                                                                                                                                                                                                                                                                   | Sequential (Expected)                                                               | Automatically assigns IDs to concepts using sequential numbers. Only works for new concepts, not existing concepts in the source.                     |
+| (ID Autoassignment) Mapping IDs                      | N/A                                                                                                                                                                                                                                                                   | Sequential (Expected)                                                               | Automatically assigns IDs to mappings using sequential numbers. Only works for new mappings, not existing mappings in the source.                    |
+| (ID Autoassignment) Concept External IDs             | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                     | Automatically assigns unique UUIDs to concepts, which is required for implementation in OpenMRS instances                                             |
+| (ID Autoassignment) Mapping External IDs             | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                     | Automatically assigns unique UUIDs to mappings, which is required for implementation in OpenMRS instances                                             |
+| (ID Autoassignment) Concept Name External IDs        | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                     | Automatically assigns unique UUIDs to concept names, which is required for implementation in OpenMRS instances                                        |
+| (ID Autoassignment) Concept Description External IDs | N/A                                                                                                                                                                                                                                                                   | UUID (Expected)                                                                     | Automatically assigns unique UUIDs to concept descriptions, which is required for implementation in OpenMRS instances                                 |
+| Purpose                                              | [purpose](http://hl7.org/fhir/R4/codesystem-definitions.html#CodeSystem.purpose "CodeSystem.purpose : Explanation of why this code system is needed and why it has been designed as it has.")                                                                               | "ANC" (Example)`<ig_code>`                                                        | This field will be used to query within a DAK domain e.g. "HIV". See FHIR spec for other intended uses.                                               |
 
 ### Optional
 
@@ -334,7 +334,7 @@ When creating concepts (data elements or input options), the following OCL field
 | ------------------------------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | Concept ID                     | Data element ID                                                 | ANC.B5.DE48                                                                     | This ID value is permanent and cannot later be changed on a concept.                                                                        |
 | Concept Class                  | "Data Element" or "Input Option"<br />**(TBD 30Sep2024)** | Misc**(Come back to this)**                                                     | Other values may be permitted by WHO DAK community.                                                                                         |
-| Datatype                       | Data type                                                       | TBD **(Use FHIR values - 30Sep2024)**                                     | TBD                                                                                                                                         |
+| Datatype                       | Data type                                                       | TBD**(Use FHIR values - 30Sep2024)**                                      | TBD                                                                                                                                         |
 | (Names & Synonyms) Locale      | N/A                                                             | en                                                                              | Use whatever locale (i.e. language code) is applicable to the name                                                                          |
 | (Names & Synonyms) Name       | Data element label                                              | ANC danger signs                                                                | Multiple names and synonyms can be added, each with their own Locale and Type                                                               |
 | (Names & Synonyms) Type        | N/A                                                             | Fully-Specified                                                                 | Describes which name type should apply to this concept name. Having at least one preferred fully specified name per locale is recommended. |
